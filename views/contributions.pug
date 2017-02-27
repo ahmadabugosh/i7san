@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  .page-header
+    h3 All Contributions
+
+  ul
+    for contribution in contributions
+      li= contribution.name
