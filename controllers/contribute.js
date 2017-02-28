@@ -9,3 +9,10 @@ exports.getContributions = (req, res) => {
  res.render('contributions', { 'contributions': docs });
   });
 };
+
+
+exports.addContributions = (req, res) => {
+  Contribute.find((err, docs) => {
+ res.render('add', { 'contributions': docs });
+  });
+};

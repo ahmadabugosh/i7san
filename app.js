@@ -216,7 +216,8 @@ app.get('/auth/pinterest/callback', passport.authorize('pinterest', { failureRed
 });
 
 //
-app.get('/contribute', contributeController.getContributions);
+app.get('/contributions', contributeController.getContributions);
+app.get('/add', contributeController.addContributions);
 
 /**
  * Error Handler.
