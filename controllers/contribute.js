@@ -16,3 +16,7 @@ exports.addContributions = (req, res) => {
  res.render('add', { 'contributions': docs });
   });
 };
+
+exports.createContributions = (req, res) => {
+ console.log("We here");
+};
