@@ -2,6 +2,11 @@
  * GET /contribute
  * List all contributions.
  */
+
+// const async = require('async');
+// const crypto = require('crypto');
+// const nodemailer = require('nodemailer');
+// const passport = require('passport');
 const Contribute = require('../models/Contribute.js');
 
 exports.getContributions = (req, res) => {
@@ -18,5 +23,19 @@ exports.addContributions = (req, res) => {
 };
 
 exports.createContributions = (req, res) => {
- console.log("We here");
+
+	const contribution= new Contribute({
+		name:req.body.name
+	});
+
+	contribution.save().then((doc)=> {
+		req.flash('success', { msg: 'Added!' });
+        res.location('/contributions');
+        res.redirect('/contributions');
+
+	}, (e) => {
+
+		res.status(400).send(e);
+
+	});
 };
