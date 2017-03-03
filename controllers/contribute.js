@@ -25,7 +25,8 @@ exports.addContributions = (req, res) => {
 exports.createContributions = (req, res) => {
 
 	const contribution= new Contribute({
-		name:req.body.name
+		name:req.body.name,
+		amount: req.body.amount
 	});
 
 	contribution.save().then((doc)=> {

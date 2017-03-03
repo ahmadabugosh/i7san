@@ -2,6 +2,7 @@
  * Module dependencies.
  */
 const express = require('express');
+const async = require('async');
 const compression = require('compression');
 const session = require('express-session');
 const bodyParser = require('body-parser');
@@ -35,6 +36,7 @@ const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const contributeController = require('./controllers/contribute');
+const impactController = require('./controllers/impact');
 
 /**
  * API keys and Passport configuration.
@@ -219,6 +221,7 @@ app.get('/auth/pinterest/callback', passport.authorize('pinterest', { failureRed
 app.get('/contributions', contributeController.getContributions);
 app.get('/add', contributeController.addContributions);
 app.post('/contribute',contributeController.createContributions);
+app.get('/impacts', impactController.getImpacts);
 
 
 /**
