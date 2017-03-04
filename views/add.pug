@@ -8,10 +8,17 @@ block content
         form(method='post', action='/contribute')
           input(type='hidden', name='_csrf', value=_csrf)
           div.form-group
-            label Contribution Name:
-            input.form-control(type='text', name='name')
             label Contribution Amount:
             input.form-control(type='text', name='amount')
+            br
+            label Type Of Contribution:
+            .form-inline(id='add1')
+              input.form-control(type='radio', name='name', value="Water" id="add2")
+              |Water 
+              input.form-control(type='radio', name='name', value="Education" id="add2")
+              |Education 
+              input.form-control(type='radio', name='name', value="Orphans" id="add2")
+              |Orphans 
           div.form-group
             button.btn.btn-primary.btn-signup(type='submit') Make Contribution
       
