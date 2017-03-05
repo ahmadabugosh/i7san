@@ -33,61 +33,7 @@ exports.getApi = (req, res) => {
   });
 };
 
-/**
- * GET /api/foursquare
- * Foursquare API example.
- */
-exports.getFoursquare = (req, res, next) => {
-  const token = req.user.tokens.find(token => token.kind === 'foursquare');
-  async.parallel({
-    trendingVenues: (callback) => {
-      foursquare.Venues.getTrending('40.7222756', '-74.0022724', { limit: 50 }, token.accessToken, (err, results) => {
-        callback(err, results);
-      });
-    },
-    venueDetail: (callback) => {
-      foursquare.Venues.getVenue('49da74aef964a5208b5e1fe3', token.accessToken, (err, results) => {
-        callback(err, results);
-      });
-    },
-    userCheckins: (callback) => {
-      foursquare.Users.getCheckins('self', null, token.accessToken, (err, results) => {
-        callback(err, results);
-      });
-    }
-  },
-  (err, results) => {
-    if (err) { return next(err); }
-    res.render('api/foursquare', {
-      title: 'Foursquare API',
-      trendingVenues: results.trendingVenues,
-      venueDetail: results.venueDetail,
-      userCheckins: results.userCheckins
-    });
-  });
-};
 
-/**
- * GET /api/tumblr
- * Tumblr API example.
- */
-exports.getTumblr = (req, res, next) => {
-  const token = req.user.tokens.find(token => token.kind === 'tumblr');
-  const client = tumblr.createClient({
-    consumer_key: process.env.TUMBLR_KEY,
-    consumer_secret: process.env.TUMBLR_SECRET,
-    token: token.accessToken,
-    token_secret: token.tokenSecret
-  });
-  client.posts('mmosdotcom.tumblr.com', { type: 'photo' }, (err, data) => {
-    if (err) { return next(err); }
-    res.render('api/tumblr', {
-      title: 'Tumblr API',
-      blog: data.blog,
-      photoset: data.posts[0].photos
-    });
-  });
-};
 
 /**
  * GET /api/facebook
@@ -370,69 +316,8 @@ exports.postStripe = (req, res) => {
   });
 };
 
-/**
- * GET /api/twilio
- * Twilio API example.
- */
-exports.getTwilio = (req, res) => {
-  res.render('api/twilio', {
-    title: 'Twilio API'
-  });
-};
 
-/**
- * POST /api/twilio
- * Send a text message using Twilio.
- */
-exports.postTwilio = (req, res, next) => {
-  req.assert('number', 'Phone number is required.').notEmpty();
-  req.assert('message', 'Message cannot be blank.').notEmpty();
-
-  const errors = req.validationErrors();
-
-  if (errors) {
-    req.flash('errors', errors);
-    return res.redirect('/api/twilio');
-  }
-
-  const message = {
-    to: req.body.number,
-    from: '+13472235148',
-    body: req.body.message
-  };
-  twilio.sendMessage(message, (err, responseData) => {
-    if (err) { return next(err.message); }
-    req.flash('success', { msg: `Text sent to ${responseData.to}.` });
-    res.redirect('/api/twilio');
-  });
-};
-
-/**
- * GET /api/clockwork
- * Clockwork SMS API example.
- */
-exports.getClockwork = (req, res) => {
-  res.render('api/clockwork', {
-    title: 'Clockwork SMS API'
-  });
-};
-
-/**
- * POST /api/clockwork
- * Send a text message using Clockwork SMS
- */
-exports.postClockwork = (req, res, next) => {
-  const message = {
-    To: req.body.telephone,
-    From: 'Hackathon',
-    Content: 'Hello from the Hackathon Starter'
-  };
-  clockwork.sendSms(message, (err, responseData) => {
-    if (err) { return next(err.errDesc); }
-    req.flash('success', { msg: `Text sent to ${responseData.responses[0].to}` });
-    res.redirect('/api/clockwork');
-  });
-};
+ 
 
 /**
  * GET /api/linkedin
@@ -591,55 +476,7 @@ exports.postFileUpload = (req, res) => {
   res.redirect('/api/upload');
 };
 
-/**
- * GET /api/pinterest
- * Pinterest API example.
- */
-exports.getPinterest = (req, res, next) => {
-  const token = req.user.tokens.find(token => token.kind === 'pinterest');
-  request.get({ url: 'https://api.pinterest.com/v1/me/boards/', qs: { access_token: token.accessToken }, json: true }, (err, request, body) => {
-    if (err) { return next(err); }
-    res.render('api/pinterest', {
-      title: 'Pinterest API',
-      boards: body.data
-    });
-  });
-};
 
-/**
- * POST /api/pinterest
- * Create a pin.
- */
-exports.postPinterest = (req, res, next) => {
-  req.assert('board', 'Board is required.').notEmpty();
-  req.assert('note', 'Note cannot be blank.').notEmpty();
-  req.assert('image_url', 'Image URL cannot be blank.').notEmpty();
-
-  const errors = req.validationErrors();
-
-  if (errors) {
-    req.flash('errors', errors);
-    return res.redirect('/api/pinterest');
-  }
-
-  const token = req.user.tokens.find(token => token.kind === 'pinterest');
-  const formData = {
-    board: req.body.board,
-    note: req.body.note,
-    link: req.body.link,
-    image_url: req.body.image_url
-  };
-
-  request.post('https://api.pinterest.com/v1/pins/', { qs: { access_token: token.accessToken }, form: formData }, (err, request, body) => {
-    if (err) { return next(err); }
-    if (request.statusCode !== 201) {
-      req.flash('errors', { msg: JSON.parse(body).message });
-      return res.redirect('/api/pinterest');
-    }
-    req.flash('success', { msg: 'Pin created' });
-    res.redirect('/api/pinterest');
-  });
-};
 
 exports.getGoogleMaps = (req, res) => {
   res.render('api/google-maps', {
