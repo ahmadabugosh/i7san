@@ -26,7 +26,9 @@
             a(href='/signup') Create Account
         else
           li(class=(title == 'My Contributions') ? 'active' : undefined)
-            a(href='/contributions') My Contributions
+            a(href='/my-contributions') My Contributions
+          li(class=(title == 'Add Contribution') ? 'active' : undefined)
+            a(href='/add') Add Contribution
           li.dropdown(class=(title == 'Account Management') ? 'active' : undefined)
             a.dropdown-toggle(href='#', data-toggle='dropdown')
               if user.profile.picture

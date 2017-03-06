@@ -11,7 +11,7 @@ async.series([
     },
 ],function(err, results){
     res.render('impacts',{
-        'impacts': results
+        'impacts': results, title:'Impact'
     });
 });
 

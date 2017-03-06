@@ -11,14 +11,20 @@ const Contribute = require('../models/Contribute.js');
 
 exports.getContributions = (req, res) => {
   Contribute.find((err, docs) => {
- res.render('contributions', { 'contributions': docs });
+ res.render('contributions', { 'contributions': docs, title: 'Contributions' });
+  });
+};
+
+exports.getMyContributions = (req, res) => {
+  Contribute.find({ 'email': req.user.email },(err, docs) => {
+ res.render('contributions', { 'contributions': docs, title: 'My Contributions'  });
   });
 };
 
 
 exports.addContributions = (req, res) => {
   Contribute.find((err, docs) => {
- res.render('add', { 'contributions': docs });
+ res.render('add', { 'contributions': docs, title: 'Add A Contribution'  });
   });
 };
 

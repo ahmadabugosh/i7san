@@ -214,8 +214,9 @@ app.get('/auth/pinterest/callback', passport.authorize('pinterest', { failureRed
 });
 
 //
-app.get('/contributions', passportConfig.isAuthenticated,contributeController.getContributions);
-app.get('/add', contributeController.addContributions);
+app.get('/contributions',contributeController.getContributions);
+app.get('/my-contributions', passportConfig.isAuthenticated,contributeController.getMyContributions);
+app.get('/add', passportConfig.isAuthenticated,contributeController.addContributions);
 app.post('/contribute',contributeController.createContributions);
 app.get('/impacts', impactController.getImpacts);
 
