@@ -5,5 +5,5 @@ block content
 		h3 All Contributions
 	ul
 		for impact in impacts
-			li= impact[0].category
-		
+			li= impact[0].category +": You helped provide " + impact[0].amount +" " + impact[0].metric
+			li= impact[1].category +": You helped provide " + impact[1].amount +" " + impact[1].metric
