@@ -4,24 +4,13 @@ const async = require('async');
 const request = require('request');
 const cheerio = require('cheerio');
 const graph = require('fbgraph');
-const LastFmNode = require('lastfm').LastFmNode;
-// const tumblr = require('tumblr.js');
-// const GitHub = require('github');
-// const Twit = require('twit');
-// const stripe = require('stripe')(process.env.STRIPE_SKEY);
-// //const twilio = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
-// const Linkedin = require('node-linkedin')(process.env.LINKEDIN_ID, process.env.LINKEDIN_SECRET, process.env.LINKEDIN_CALLBACK_URL);
-// //const clockwork = require('clockwork')({ key: process.env.CLOCKWORK_KEY });
-// const paypal = require('paypal-rest-sdk');
-// const lob = require('lob')(process.env.LOB_KEY);
-// const ig = require('instagram-node').instagram();
-// const foursquare = require('node-foursquare')({
-//   secrets: {
-//     clientId: process.env.FOURSQUARE_ID,
-//     clientSecret: process.env.FOURSQUARE_SECRET,
-//     redirectUrl: process.env.FOURSQUARE_REDIRECT_URL
-//   }
-// });
+const stripe = require('stripe')(process.env.STRIPE_SKEY);
+const Linkedin = require('node-linkedin')(process.env.LINKEDIN_ID, process.env.LINKEDIN_SECRET, process.env.LINKEDIN_CALLBACK_URL);
+
+const paypal = require('paypal-rest-sdk');
+
+const ig = require('instagram-node').instagram();
+
 
 /**
  * GET /api
@@ -55,20 +44,7 @@ exports.getFacebook = (req, res, next) => {
  * GET /api/scraping
  * Web scraping example using Cheerio library.
  */
-exports.getScraping = (req, res, next) => {
-  request.get('https://news.ycombinator.com/', (err, request, body) => {
-    if (err) { return next(err); }
-    const $ = cheerio.load(body);
-    const links = [];
-    $('.title a[href^="http"], a[href^="https"]').each((index, element) => {
-      links.push($(element));
-    });
-    res.render('api/scraping', {
-      title: 'Web Scraping',
-      links
-    });
-  });
-};
+
 
 /**
  * GET /api/github
@@ -85,106 +61,9 @@ exports.getGithub = (req, res, next) => {
   });
 };
 
-/**
- * GET /api/aviary
- * Aviary image processing example.
- */
-exports.getAviary = (req, res) => {
-  res.render('api/aviary', {
-    title: 'Aviary API'
-  });
-};
 
-/**
- * GET /api/nyt
- * New York Times API example.
- */
-exports.getNewYorkTimes = (req, res, next) => {
-  const query = {
-    'list-name': 'young-adult',
-    'api-key': process.env.NYT_KEY
-  };
-  request.get({ url: 'http://api.nytimes.com/svc/books/v2/lists', qs: query }, (err, request, body) => {
-    if (err) { return next(err); }
-    if (request.statusCode === 403) {
-      return next(new Error('Invalid New York Times API Key'));
-    }
-    const books = JSON.parse(body).results;
-    res.render('api/nyt', {
-      title: 'New York Times API',
-      books
-    });
-  });
-};
 
-/**
- * GET /api/lastfm
- * Last.fm API example.
- */
-exports.getLastfm = (req, res, next) => {
-  const lastfm = new LastFmNode({
-    api_key: process.env.LASTFM_KEY,
-    secret: process.env.LASTFM_SECRET
-  });
-  async.parallel({
-    artistInfo: (done) => {
-      lastfm.request('artist.getInfo', {
-        artist: 'Roniit',
-        handlers: {
-          success: (data) => {
-            done(null, data);
-          },
-          error: (err) => {
-            done(err);
-          }
-        }
-      });
-    },
-    artistTopTracks: (done) => {
-      lastfm.request('artist.getTopTracks', {
-        artist: 'Roniit',
-        handlers: {
-          success: (data) => {
-            done(null, data.toptracks.track.slice(0, 10));
-          },
-          error: (err) => {
-            done(err);
-          }
-        }
-      });
-    },
-    artistTopAlbums: (done) => {
-      lastfm.request('artist.getTopAlbums', {
-        artist: 'Roniit',
-        handlers: {
-          success: (data) => {
-            done(null, data.topalbums.album.slice(0, 3));
-          },
-          error: (err) => {
-            done(err);
-          }
-        }
-      });
-    }
-  },
-  (err, results) => {
-    if (err) { return next(err); }
-    const artist = {
-      name: results.artistInfo.artist.name,
-      image: results.artistInfo.artist.image.slice(-1)[0]['#text'],
-      tags: results.artistInfo.artist.tags.tag,
-      bio: results.artistInfo.artist.bio.summary,
-      stats: results.artistInfo.artist.stats,
-      similar: results.artistInfo.artist.similar.artist,
-      topAlbums: results.artistTopAlbums,
-      topTracks: results.artistTopTracks
-    };
-    res.render('api/lastfm', {
-      title: 'Last.fm API',
-      artist
-    });
-  });
-};
+
 
 /**
  * GET /api/twitter
@@ -232,54 +111,6 @@ exports.postTwitter = (req, res, next) => {
     if (err) { return next(err); }
     req.flash('success', { msg: 'Your tweet has been posted.' });
     res.redirect('/api/twitter');
-  });
-};
-
-/**
- * GET /api/steam
- * Steam API example.
- */
-exports.getSteam = (req, res, next) => {
-  const steamId = '76561197982488301';
-  const params = { l: 'english', steamid: steamId, key: process.env.STEAM_KEY };
-  async.parallel({
-    playerAchievements: (done) => {
-      params.appid = '49520';
-      request.get({ url: 'http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/', qs: params, json: true }, (err, request, body) => {
-        if (request.statusCode === 401) {
-          return done(new Error('Invalid Steam API Key'));
-        }
-        done(err, body);
-      });
-    },
-    playerSummaries: (done) => {
-      params.steamids = steamId;
-      request.get({ url: 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/', qs: params, json: true }, (err, request, body) => {
-        if (request.statusCode === 401) {
-          return done(new Error('Missing or Invalid Steam API Key'));
-        }
-        done(err, body);
-      });
-    },
-    ownedGames: (done) => {
-      params.include_appinfo = 1;
-      params.include_played_free_games = 1;
-      request.get({ url: 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/', qs: params, json: true }, (err, request, body) => {
-        if (request.statusCode === 401) {
-          return done(new Error('Missing or Invalid Steam API Key'));
-        }
-        done(err, body);
-      });
-    }
-  },
-  (err, results) => {
-    if (err) { return next(err); }
-    res.render('api/steam', {
-      title: 'Steam Web API',
-      ownedGames: results.ownedGames.response.games,
-      playerAchievemments: results.playerAchievements.playerstats,
-      playerSummary: results.playerSummaries.response.players[0]
-    });
   });
 };
 
@@ -446,19 +277,6 @@ exports.getPayPalCancel = (req, res) => {
   });
 };
 
-/**
- * GET /api/lob
- * Lob API example.
- */
-exports.getLob = (req, res, next) => {
-  lob.routes.list({ zip_codes: ['10007'] }, (err, routes) => {
-    if (err) { return next(err); }
-    res.render('api/lob', {
-      title: 'Lob API',
-      routes: routes.data[0].routes
-    });
-  });
-};
 
 /**
  * GET /api/upload
