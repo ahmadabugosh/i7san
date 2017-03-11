@@ -37,6 +37,7 @@ const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const contributeController = require('./controllers/contribute');
 const impactController = require('./controllers/impact');
+const projectController = require('./controllers/project');
 
 /**
  * API keys and Passport configuration.
@@ -189,6 +190,8 @@ app.get('/my-contributions', passportConfig.isAuthenticated,contributeController
 app.get('/add', passportConfig.isAuthenticated,contributeController.addContributions);
 app.post('/contribute',contributeController.createContributions);
 app.get('/impacts', impactController.getImpacts);
+
+app.get('/projects', projectController.getProjects);
 
 
 /**
