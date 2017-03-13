@@ -5,20 +5,20 @@ block content
     div.col-sm-4
       div.page-header
         h1 Add Contribution
-        form(method='post', action='/contribute')
+        form(method='post', action='/project')
           input(type='hidden', name='_csrf', value=_csrf)
           div.form-group
             label Contribution Amount:
             input.form-control(type='text', name='amount')
             br
-            label Type Of Contribution:
+            label Category:
             .form-inline(id='add1')
-              input.form-control(type='radio', name='name', value="Water" id="add2")
+              input.form-control(type='radio', name='category', value="Water" id="add2")
               |Water 
-              input.form-control(type='radio', name='name', value="Education" id="add2")
+              input.form-control(type='radio', name='category', value="Education" id="add2")
               |Education 
-              input.form-control(type='radio', name='name', value="Orphans" id="add2")
+              input.form-control(type='radio', name='category', value="Orphans" id="add2")
               |Orphans 
           div.form-group
-            button.btn.btn-primary.btn-signup(type='submit') Make Contribution
+            button.btn.btn-primary.btn-signup(type='submit') Add Project
       

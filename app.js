@@ -187,8 +187,8 @@ app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRe
 //
 app.get('/contributions',contributeController.getContributions);
 app.get('/my-contributions', passportConfig.isAuthenticated,contributeController.getMyContributions);
-app.get('/add', passportConfig.isAuthenticated,contributeController.addContributions);
-app.post('/contribute',contributeController.createContributions);
+app.get('/add', passportConfig.isAuthenticated,projectController.addProjects);
+app.post('/project',projectController.createProjects);
 app.get('/impacts', impactController.getImpacts);
 
 app.get('/projects', projectController.getProjects);
