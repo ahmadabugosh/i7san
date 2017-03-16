@@ -13,6 +13,7 @@ const projectSchema = new mongoose.Schema({
   address: String,
   timeCreated: { type: Date, default: Date.now },
   username: String,
+  imageUrl: String,
  email: {type:String, required:true}
 });
 

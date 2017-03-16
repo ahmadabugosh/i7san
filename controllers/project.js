@@ -6,6 +6,19 @@ exports.getProjects = (req, res) => {
   });
 };
 
+
+exports.getMyProjects = (req, res) => {
+  Project.find({ 'email': req.user.email },(err, docs) => {
+ res.render('projects', { 'projects': docs, title: 'My Projects'  });
+  });
+};
+
+exports.addProjects = (req, res) => {
+  Project.find((err, docs) => {
+ res.render('add', { 'projects': docs, title: 'Add A Project'  });
+  });
+};
+
 exports.createProjects = (req, res) => {
 
 	const project= new Project({
@@ -15,7 +28,7 @@ exports.createProjects = (req, res) => {
 		email: req.user.email
 	});
 
-	contribution.save().then((doc)=> {
+	project.save().then((doc)=> {
 		req.flash('success', { msg: 'Added!' });
         res.location('/projects');
         res.redirect('/projects');

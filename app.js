@@ -35,7 +35,6 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
-const contributeController = require('./controllers/contribute');
 const impactController = require('./controllers/impact');
 const projectController = require('./controllers/project');
 
@@ -184,14 +183,13 @@ app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRe
 });
 
 
-//
-app.get('/contributions',contributeController.getContributions);
-app.get('/my-contributions', passportConfig.isAuthenticated,contributeController.getMyContributions);
+//authenticated actions
+app.get('/my-projects', passportConfig.isAuthenticated,projectController.getMyProjects);
 app.get('/add', passportConfig.isAuthenticated,projectController.addProjects);
-app.post('/project',projectController.createProjects);
-app.get('/impacts', impactController.getImpacts);
+app.get('/my-impact',passportConfig.isAuthenticated, impactController.getImpacts);
 
 app.get('/projects', projectController.getProjects);
+app.post('/project',projectController.createProjects);
 
 
 /**

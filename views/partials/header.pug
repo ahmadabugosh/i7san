@@ -11,20 +11,20 @@
         | i7san
     .collapse.navbar-collapse
       ul.nav.navbar-nav
-        li(class=(title == 'Contributions') ? 'active' : undefined)
-          a(href='/contributions') Contributions
-        li(class=(title == 'Impact') ? 'active' : undefined)
-          a(href='/impacts') Impact
+        li(class=(title == 'All Projects') ? 'active' : undefined)
+          a(href='/projects') All Projects
         if !user
           li(class=(title == 'Login') ? 'active' : undefined)
             a(href='/login') Login
           li(class=(title == 'Create Account') ? 'active' : undefined)
             a(href='/signup') Create Account
         else
-          li(class=(title == 'My Contributions') ? 'active' : undefined)
-            a(href='/my-contributions') My Projects
-          li(class=(title == 'Add Contribution') ? 'active' : undefined)
-            a(href='/add') Add Contribution
+          li(class=(title == 'Add Project') ? 'active' : undefined)
+            a(href='/add') Add Project
+          li(class=(title == 'My Projects') ? 'active' : undefined)
+            a(href='/my-projects') My Projects
+          li(class=(title == 'My Impact') ? 'active' : undefined)
+            a(href='/my-impact') My Impact
           li.dropdown(class=(title == 'Account Management') ? 'active' : undefined)
             a.dropdown-toggle(href='#', data-toggle='dropdown')
               if user.profile.picture

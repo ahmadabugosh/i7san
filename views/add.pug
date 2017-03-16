@@ -4,12 +4,15 @@ block content
   div.row
     div.col-sm-4
       div.page-header
-        h1 Add Contribution
+        h1 Add Project
         form(method='post', action='/project')
           input(type='hidden', name='_csrf', value=_csrf)
           div.form-group
-            label Contribution Amount:
-            input.form-control(type='text', name='amount')
+            label Project Name:
+            input.form-control(type='text', name='name')
+            br
+            label Project Description:
+            input.form-control(type='text', name='description')
             br
             label Category:
             .form-inline(id='add1')
