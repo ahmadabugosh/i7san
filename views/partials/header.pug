@@ -19,8 +19,9 @@
           li(class=(title == 'Create Account') ? 'active' : undefined)
             a(href='/signup') Create Account
         else
-          li(class=(title == 'Add Project') ? 'active' : undefined)
-            a(href='/add') Add Project
+          if (user.role === 'moderator')
+            li(class=(title == 'Add Project') ? 'active' : undefined)
+              a(href='/add') Add Project
           li(class=(title == 'My Projects') ? 'active' : undefined)
             a(href='/my-projects') My Projects
           li(class=(title == 'My Impact') ? 'active' : undefined)

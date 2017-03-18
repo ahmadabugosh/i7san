@@ -21,6 +21,23 @@ const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
 
+const ConnectRoles = require('connect-roles');
+
+var user = new ConnectRoles({
+  failureHandler: function (req, res, action) {
+    // optional function to customise code that runs when
+    // user fails authorisation
+    var accept = req.headers.accept || '';
+    res.status(403);
+    if (~accept.indexOf('html')) {
+      res.render('access-denied', {action: action});
+    } else {
+      res.send('Access Denied - You don\'t have permission to: ' + action);
+    }
+  }
+});
+
+
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
 /**
@@ -115,6 +132,9 @@ app.use((req, res, next) => {
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 
+
+app.use(user.middleware());
+
 /**
  * Primary app routes.
  */
@@ -182,10 +202,32 @@ app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRe
   res.redirect(req.session.returnTo || '/');
 });
 
+user.use(function (req, action) {
+  if (!req.isAuthenticated()) return action === 'access home page';
+})
+
+//moderator users can access private page, but
+//they might not be the only ones so we don't return
+//false if the user isn't a moderator
+user.use('access private page', function (req) {
+  if (req.user.role === 'moderator') {
+    return true;
+  }
+})
+
+//admin users can access all pages
+user.use(function (req) {
+  if (req.user.role === 'admin') {
+    return true;
+  }
+});
+
+
+
 
 //authenticated actions
 app.get('/my-projects', passportConfig.isAuthenticated,projectController.getMyProjects);
-app.get('/add', passportConfig.isAuthenticated,projectController.addProjects);
+app.get('/add', passportConfig.isAuthenticated,user.can('access private page'),projectController.addProjects);
 app.get('/my-impact',passportConfig.isAuthenticated, impactController.getImpacts);
 
 app.get('/projects', projectController.getProjects);
