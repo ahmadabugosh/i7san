@@ -19,7 +19,7 @@
           li(class=(title == 'Create Account') ? 'active' : undefined)
             a(href='/signup') Create Account
         else
-          if (user.role === 'moderator')
+          if (user.role === 'moderator' || user.role === 'admin')
             li(class=(title == 'Add Project') ? 'active' : undefined)
               a(href='/add') Add Project
           li(class=(title == 'My Projects') ? 'active' : undefined)

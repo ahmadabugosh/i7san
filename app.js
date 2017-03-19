@@ -104,7 +104,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if (req.path === '/api/upload') {
+  if (req.path === '/api/upload' ||req.path === '/add' ||req.path === '/project' ) {
     next();
   } else {
     lusca.csrf()(req, res, next);
@@ -231,7 +231,7 @@ app.get('/add', passportConfig.isAuthenticated,user.can('access private page'),p
 app.get('/my-impact',passportConfig.isAuthenticated, impactController.getImpacts);
 
 app.get('/projects', projectController.getProjects);
-app.post('/project',projectController.createProjects);
+app.post('/add',upload.single('myFile'),projectController.createProjects);
 
 
 /**

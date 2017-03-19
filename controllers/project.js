@@ -30,6 +30,7 @@ exports.createProjects = (req, res) => {
 
 	project.save().then((doc)=> {
 		req.flash('success', { msg: 'Added!' });
+		console.log(req);
         res.location('/projects');
         res.redirect('/projects');
 

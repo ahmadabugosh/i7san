@@ -22,6 +22,7 @@ public/css/main.css
 # Dependency directory
 node_modules
 bower_components
+/uploads
 
 # Editors
 .idea

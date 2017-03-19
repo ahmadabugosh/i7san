@@ -5,11 +5,14 @@ block content
     div.col-sm-4
       div.page-header
         h1 Add Project
-        form(method='post', action='/project')
-          input(type='hidden', name='_csrf', value=_csrf)
+        form(method='post', action='/add', role='form',enctype='multipart/form-data')
           div.form-group
             label Project Name:
             input.form-control(type='text', name='name')
+            br
+            label Project Image:
+            input(type='file', name='myFile')
+            br
             br
             label Project Description:
             input.form-control(type='text', name='description')
