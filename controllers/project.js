@@ -6,6 +6,13 @@ exports.getProjects = (req, res) => {
   });
 };
 
+exports.getProject = (req, res) => {
+ Project.find({ 'name': req.params.projectid },(err, docs) => {
+ res.render('project', { 'projects': docs, title: req.params.projectid+'Project'  });
+  });
+
+};
+
 
 exports.getMyProjects = (req, res) => {
   Project.find({ 'email': req.user.email },(err, docs) => {

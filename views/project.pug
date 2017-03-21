@@ -2,9 +2,8 @@ extends layout
 
 block content
 	.page-header
-		h3 All Projects
+		h3 Project Details
 	ul
 		for project in projects
 			li= project.name
-			a(href='../project/'+project.name)
-				img(src=project.imageUrl)
+			img(src="../"+project.imageUrl)

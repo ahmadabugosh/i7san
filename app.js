@@ -230,8 +230,8 @@ app.get('/my-projects', passportConfig.isAuthenticated,projectController.getMyPr
 app.get('/add', passportConfig.isAuthenticated,user.can('access private page'),projectController.addProjects);
 app.get('/my-impact',passportConfig.isAuthenticated, impactController.getImpacts);
 
-app.get('/projects/:projectid', projectController.getProject(projectid));
-
+app.get('/projects', projectController.getProjects);
+app.get('/project/:projectid', projectController.getProject);
 app.post('/add',upload.single('myFile'),projectController.createProjects);
 
 
