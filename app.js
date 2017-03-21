@@ -131,7 +131,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
-
+app.use(express.static(path.join(__dirname, 'uploads'), { maxAge: 31557600000 }));
 
 app.use(user.middleware());
 
@@ -230,7 +230,8 @@ app.get('/my-projects', passportConfig.isAuthenticated,projectController.getMyPr
 app.get('/add', passportConfig.isAuthenticated,user.can('access private page'),projectController.addProjects);
 app.get('/my-impact',passportConfig.isAuthenticated, impactController.getImpacts);
 
-app.get('/projects', projectController.getProjects);
+app.get('/projects/:projectid', projectController.getProject(projectid));
+
 app.post('/add',upload.single('myFile'),projectController.createProjects);
 
 

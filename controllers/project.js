@@ -25,12 +25,12 @@ exports.createProjects = (req, res) => {
 		name:req.body.name,
 		description: req.body.description,
 		category: req.body.category,
-		email: req.user.email
+		email: req.user.email,
+		imageUrl: req.file.filename
 	});
 
 	project.save().then((doc)=> {
 		req.flash('success', { msg: 'Added!' });
-		console.log(req);
         res.location('/projects');
         res.redirect('/projects');
 
