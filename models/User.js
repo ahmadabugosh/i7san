@@ -14,7 +14,9 @@ organizations:[{
   }],
 
   facebook: String,
-  role: String,
+
+  role: {type: String, default: "user"},
+
   twitter: String,
   google: String,
   instagram: String,
