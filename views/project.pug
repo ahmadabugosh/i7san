@@ -6,4 +6,5 @@ block content
 	ul
 		for project in projects
 			li= project.name
-			img(src="../"+project.imageUrl)
+			img.project(src="../"+project.imageUrl)
+			button.btn.btn-primary(type='button') Join Project

@@ -5,6 +5,11 @@ block content
 		h3 All Projects
 	ul
 		for project in projects
-			li= project.name
-			a(href='../project/'+project.name)
-				img(src=project.imageUrl)
+			h4.li.list-group-item(class='div.media')= project.name
+				.media-left
+				project.name
+				a(href='../project/'+project.name)
+					img.project(src=project.imageUrl)
+					br
+				a(href='../project/'+project.name)
+					button.btn.btn-primary(type='button') Join Project

@@ -13,6 +13,8 @@
       ul.nav.navbar-nav
         li(class=(title == 'All Projects') ? 'active' : undefined)
           a(href='/projects') All Projects
+        li(class=(title == 'All Organizations') ? 'active' : undefined)
+          a(href='/organizations') All Organizations
         if !user
           li(class=(title == 'Login') ? 'active' : undefined)
             a(href='/login') Login

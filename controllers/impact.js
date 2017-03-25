@@ -1,5 +1,5 @@
 const Impact = require('../models/Impact.js');
-const Contribute = require('../models/Contribute.js');
+
 const async = require('async');
 const impacts1 ={};
 

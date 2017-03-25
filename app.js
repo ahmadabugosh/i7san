@@ -54,6 +54,7 @@ const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const impactController = require('./controllers/impact');
 const projectController = require('./controllers/project');
+const organizationController = require('./controllers/organization');
 
 /**
  * API keys and Passport configuration.
@@ -104,7 +105,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if (req.path === '/api/upload' ||req.path === '/add' ||req.path === '/project' ) {
+  if (req.path === '/api/upload' ||req.path === '/add' ||req.path === '/project'||req.path === '/add/project' ) {
     next();
   } else {
     lusca.csrf()(req, res, next);
@@ -233,6 +234,13 @@ app.get('/my-impact',passportConfig.isAuthenticated, impactController.getImpacts
 app.get('/projects', projectController.getProjects);
 app.get('/project/:projectid', projectController.getProject);
 app.post('/add',upload.single('myFile'),projectController.createProjects);
+
+app.get('/organizations',organizationController.getOrganizations);
+// app.get('/add/organization',organizationController.addOrganizations);
+// app.post('/add/organization',upload.single('myFile'),organizationController.createOrganizations);
+
+app.get('/add/project',organizationController.addProjects);
+app.post('/add/project',upload.single('myFile'),organizationController.createProjects);
 
 
 /**
