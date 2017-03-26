@@ -9,11 +9,8 @@ block content
           div.form-group
             label Organization Name:
             select.btn.btn-primary.dropdown-toggle(name= "org")
-              option(value='Kim', selected=kim) Kim 
-              option(value='Christer', selected=christer) Christer
-              option(value='Hege', selected=hege) Hege
-              option(value='Morten', selected=morten) Morten
-              option(value='Andre', selected=andre) Andre
+              for organization in organizations
+                option(value=organization.name, selected="#{organization.name}") #{organization.name}
             br
             label Project Name:
             input.form-control(type='text', name='name')

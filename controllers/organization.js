@@ -2,6 +2,8 @@ const Organization = require('../models/Organization.js');
 const Project = require('../models/Project.js');
 
 
+
+
 exports.getOrganizations = (req, res) => {
   Organization.find((err, docs) => {
  res.render('organizations', { 'organizations': docs, title: 'Organizations' });
@@ -11,7 +13,7 @@ exports.getOrganizations = (req, res) => {
 
 
 exports.addProjects = (req, res) => {
-  Project.find((err, docs) => {
+  Organization.find((err, docs) => {
  res.render('addproject', { 'organizations': docs, title: 'Add A Project'  });
   });
 };
@@ -19,15 +21,7 @@ exports.addProjects = (req, res) => {
 
 exports.createProjects = (req, res) => {
 
-	console.log(req.body);
-	console.log("look up");
-
-	const organization = new Organization ({
-
-		name: req.body.org
-	});
-
-	const project= new Project({
+const project= new Project({
 		name:req.body.name,
 		description: req.body.description,
 		category: req.body.category,
@@ -35,10 +29,12 @@ exports.createProjects = (req, res) => {
 		imageUrl: req.file.filename
 	});
 
-	organization.projects.push(project);
+	 Organization.findOne({name: req.body.org})
+		.then ((user) => {
 
 
-	Promise.all([organization.save(),project.save()]).then((doc)=> {
+	user.projects.push(project);
+		Promise.all([user.save(),project.save()]).then((doc)=> {
 		req.flash('success', { msg: 'Added!' });
         res.location('/organizations');
         res.redirect('/organizations');
@@ -49,4 +45,9 @@ exports.createProjects = (req, res) => {
 		res.status(400).send(e);
 
 	});
+		});
+	
+
+
+
 };
