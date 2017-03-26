@@ -19,6 +19,9 @@ exports.addProjects = (req, res) => {
 
 exports.createProjects = (req, res) => {
 
+	console.log(req.body);
+	console.log("look up");
+
 	const organization = new Organization ({
 
 		name: req.body.org

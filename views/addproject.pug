@@ -7,37 +7,32 @@ block content
         h1 Add Project
         form(method='post', action='/add/project', role='form',enctype='multipart/form-data')
           div.form-group
-          label Organization Name:
-          .dropdown
-            button.btn.btn-primary.dropdown-toggle(type='button', data-toggle='dropdown')
-              | Dropdown Example
-              span.caret
-            ul.dropdown-menu
-              li
-                a(href='#' data-value="action") HTML
-              li
-                a(href='#') CSS
-              li
-                a(href='#') JavaScript
-
-          label Project Name:
-          input.form-control(type='text', name='name')
-          br
-          label Project Image:
-          input(type='file', name='myFile')
-          br
-          br
-          label Project Description:
-          input.form-control(type='text', name='description')
-          br
-          label Category:
-          .form-inline(id='add1')
-            input.form-control(type='radio', name='category', value="Water" id="add2")
-            |Water 
-            input.form-control(type='radio', name='category', value="Education" id="add2")
-            |Education 
-            input.form-control(type='radio', name='category', value="Orphans" id="add2")
-            |Orphans 
-        div.form-group
-          button.btn.btn-primary.btn-signup(type='submit') Add Project
-    
+            label Organization Name:
+            select.btn.btn-primary.dropdown-toggle(name= "org")
+              option(value='Kim', selected=kim) Kim 
+              option(value='Christer', selected=christer) Christer
+              option(value='Hege', selected=hege) Hege
+              option(value='Morten', selected=morten) Morten
+              option(value='Andre', selected=andre) Andre
+            br
+            label Project Name:
+            input.form-control(type='text', name='name')
+            br
+            label Project Image:
+            input(type='file', name='myFile')
+            br
+            br
+            label Project Description:
+            input.form-control(type='text', name='description')
+            br
+            label Category:
+            .form-inline(id='add1')
+              input.form-control(type='radio', name='category', value="Water" id="add2")
+              |Water 
+              input.form-control(type='radio', name='category', value="Education" id="add2")
+              |Education 
+              input.form-control(type='radio', name='category', value="Orphans" id="add2")
+              |Orphans 
+          div.form-group
+            button.btn.btn-primary.btn-signup(type='submit') Add Project
+      
