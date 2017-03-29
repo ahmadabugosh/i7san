@@ -14,8 +14,13 @@ const projectSchema = new mongoose.Schema({
   timeCreated: { type: Date, default: Date.now },
   username: String,
   imageUrl: String,
- email: {type:String, required:true}
+ email: {type:String, required:true},
+ tasks: [{
+		type: Schema.Types.ObjectId,
+		ref: 'task'
+	}]
 });
 
 const Project = mongoose.model('Project', projectSchema);
 module.exports = Project;
+
