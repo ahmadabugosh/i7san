@@ -12,7 +12,14 @@ organizations:[{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Organization'
   }],
-
+  activities:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Activity'
+  }],
+   projects:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Project'
+  }],
   facebook: String,
 
   role: {type: String, default: "user"},

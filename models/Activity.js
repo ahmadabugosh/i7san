@@ -7,7 +7,7 @@ const activitySchema = new mongoose.Schema({
   category: String, 
   hours: Number,
   points: Number,
-  imageUrl: String,
+  mediaUrl: String,
    timeCreated: { type: Date, default: Date.now }
 });
 

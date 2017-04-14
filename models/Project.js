@@ -15,8 +15,12 @@ const projectSchema = new mongoose.Schema({
   username: String,
   imageUrl: String,
  email: {type:String, required:true},
+   activities:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Activity'
+  }],
  tasks: [{
-		type: Schema.Types.ObjectId,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'task'
 	}]
 });

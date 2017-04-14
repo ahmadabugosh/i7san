@@ -4,9 +4,9 @@ mongoose.set('debug', true);
 const organizationSchema = new mongoose.Schema({
   name: String,
   country: String, 
-  projects:[{
+  activities:[{
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Project'
+		ref: 'Activity'
 	}]
 });
 
