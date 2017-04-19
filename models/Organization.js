@@ -7,6 +7,14 @@ const organizationSchema = new mongoose.Schema({
   activities:[{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Activity'
+	}],
+	projects:[{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Project'
+	}],
+	users:[{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'User'
 	}]
 });
 

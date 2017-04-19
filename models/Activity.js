@@ -8,7 +8,8 @@ const activitySchema = new mongoose.Schema({
   hours: Number,
   points: Number,
   mediaUrl: String,
-   timeCreated: { type: Date, default: Date.now }
+   timeCreated: { type: Date, default: Date.now },
+   verified: Boolean
 });
 
 const Activity = mongoose.model('Activity', activitySchema);
