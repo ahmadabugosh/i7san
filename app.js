@@ -56,6 +56,8 @@ const impactController = require('./controllers/impact');
 const projectController = require('./controllers/project');
 const organizationController = require('./controllers/organization');
 
+const activityController = require('./controllers/activity');
+
 /**
  * API keys and Passport configuration.
  */
@@ -233,6 +235,10 @@ app.get('/my-impact',passportConfig.isAuthenticated, impactController.getImpacts
 
 app.get('/projects', projectController.getProjects);
 app.get('/project/:projectid', projectController.getProject);
+
+app.get('/volunteer', activityController.getActivities);
+app.get('/volunteer/:activityid', activityController.getActivity);
+
 app.post('/add',upload.single('myFile'),projectController.createProjects);
 
 app.get('/organizations',organizationController.getOrganizations);

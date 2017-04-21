@@ -1,0 +1,11 @@
+extends layout
+
+block content
+	.page-header
+		h3 All Activities
+	ul
+		for activity in activities
+			h4.li.list-group-item(class='div.media')= activity.name
+				.media-left
+				activity.name
+			

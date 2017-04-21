@@ -1,0 +1,9 @@
+extends layout
+
+block content
+	.page-header
+		h3 Activity Details
+	ul
+		for activity in activities
+			li= activity.name
+			button.btn.btn-primary(type='button') Join Activity
