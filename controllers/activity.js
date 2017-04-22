@@ -12,3 +12,33 @@ exports.getActivity = (req, res) => {
   });
 
 };
+
+
+exports.addActivity = (req, res) => {
+
+ res.render('add-activity', { title: 'Add An Activity'  });
+ 
+};
+
+exports.createActivity = (req, res) => {
+
+	const activity= new Activity({
+		name:req.body.name,
+		description: req.body.description,
+		hours: req.body.hours,
+		points: req.body.points
+
+
+	});
+
+	activity.save().then((doc)=> {
+		req.flash('success', { msg: 'Added!' });
+        res.location('/volunteer');
+        res.redirect('/volunteer');
+
+	}, (e) => {
+
+		res.status(400).send(e);
+
+	});
+};

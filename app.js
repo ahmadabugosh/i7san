@@ -107,7 +107,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if (req.path === '/api/upload' ||req.path === '/add' ||req.path === '/project'||req.path === '/add/project' ) {
+  if (req.path === '/api/upload' ||req.path === '/add' ||req.path === '/project'||req.path === '/add/project'||req.path === '/add-activity' ) {
     next();
   } else {
     lusca.csrf()(req, res, next);
@@ -238,6 +238,8 @@ app.get('/project/:projectid', projectController.getProject);
 
 app.get('/volunteer', activityController.getActivities);
 app.get('/volunteer/:activityid', activityController.getActivity);
+app.get('/add-activity', passportConfig.isAuthenticated,user.can('access private page'),activityController.addActivity);
+app.post('/add-activity',upload.single('myFile'),activityController.createActivity );
 
 app.post('/add',upload.single('myFile'),projectController.createProjects);
 
