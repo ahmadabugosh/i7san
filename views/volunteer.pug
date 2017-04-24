@@ -1,0 +1,8 @@
+extends layout
+
+block content
+	.page-header
+		h3 All Volunteer Activities
+	ul
+		for volunteer in volunteering
+			h4.li.list-group-item(class='div.media')= volunteer.name

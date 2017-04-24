@@ -8,7 +8,7 @@ exports.getActivities = (req, res) => {
 
 exports.getActivity = (req, res) => {
  Activity.find({ 'name': req.params.activityid },(err, docs) => {
- res.render('activity', { 'activities': docs, title: req.params.activityid+'Project'  });
+ res.render('activity', { 'activities': docs, title: req.params.activityid+'Activity'  });
   });
 
 };

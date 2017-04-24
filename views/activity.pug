@@ -2,8 +2,25 @@ extends layout
 
 block content
 	.page-header
-		h3 Activity Details
-	ul
 		for activity in activities
-			li= activity.name
-			button.btn.btn-primary(type='button') Join Activity
+			h1= activity.name
+			form(method='post', action='/volunteer', role='form',enctype='multipart/form-data')
+				div.form-group
+				br
+				div(name="#{activity.name}",value="#{activity.name}")
+				br
+				label Proof:
+				input(type='file', name='myFile')
+				br
+				br
+				label Activity Description:
+				input.form-control(type='text', name='description')
+				br
+				label Activity Volunteer Hours:
+				input.form-control(type='number', name='hours')
+				br
+				label Activity Points:
+				input.form-control(type='number', name='points')
+				br
+			div.form-group
+				button.btn.btn-primary.btn-signup(type='submit') Volunteer!

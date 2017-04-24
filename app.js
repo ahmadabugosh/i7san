@@ -58,6 +58,8 @@ const organizationController = require('./controllers/organization');
 
 const activityController = require('./controllers/activity');
 
+const volunteerController = require('./controllers/volunteer');
+
 /**
  * API keys and Passport configuration.
  */
@@ -238,6 +240,8 @@ app.get('/project/:projectid', projectController.getProject);
 
 app.get('/volunteer', activityController.getActivities);
 app.get('/volunteer/:activityid', activityController.getActivity);
+
+app.get('/volunteering',volunteerController.getVolunteer);
 app.get('/add-activity', passportConfig.isAuthenticated,user.can('access private page'),activityController.addActivity);
 app.post('/add-activity',upload.single('myFile'),activityController.createActivity );
 

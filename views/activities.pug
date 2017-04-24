@@ -7,5 +7,7 @@ block content
 		for activity in activities
 			h4.li.list-group-item(class='div.media')= activity.name
 				.media-left
-				activity.name
+				a(href='../volunteer/'+activity.name)
+					activity.name
+					button.btn.btn-primary(type='button') Join Activity
 			

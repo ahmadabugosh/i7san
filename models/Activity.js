@@ -5,11 +5,8 @@ const activitySchema = new mongoose.Schema({
   name: String,
   description: String,
   category: String, 
-  hours: Number,
-  points: Number,
   mediaUrl: String,
-   timeCreated: { type: Date, default: Date.now },
-   verified: Boolean
+   timeCreated: { type: Date, default: Date.now }
 });
 
 const Activity = mongoose.model('Activity', activitySchema);
