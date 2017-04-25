@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  div.row
+    div.col-sm-4
+      div.page-header
+        h1 Add Volunteering
+        form(method='post', action='/add/volunteering', role='form',enctype='multipart/form-data')
+          div.form-group
+            label Activity Name:
+            select.btn.btn-primary.dropdown-toggle(name= "activity")
+              for activity in activities
+                option(value=activity.name, selected="#{activity.name}") #{activity.name}
+            br
+            label se:
+            input.form-control(type='text', name='name')
+            br
+            label Project Image:
+            input(type='file', name='myFile')
+            br
+            br
+            label Project Description:
+            input.form-control(type='text', name='description')
+            br
+            label Category:
+            .form-inline(id='add1')
+              input.form-control(type='radio', name='category', value="Water" id="add2")
+              |Water 
+              input.form-control(type='radio', name='category', value="Education" id="add2")
+              |Education 
+              input.form-control(type='radio', name='category', value="Orphans" id="add2")
+              |Orphans 
+          div.form-group
+            button.btn.btn-primary.btn-signup(type='submit') Add Project
+      

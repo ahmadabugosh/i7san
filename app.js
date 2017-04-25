@@ -242,6 +242,8 @@ app.get('/volunteer', activityController.getActivities);
 app.get('/volunteer/:activityid', activityController.getActivity);
 
 app.get('/volunteering',volunteerController.getVolunteer);
+app.get('/volunteering/add', volunteerController.addVolunteering);
+
 app.get('/add-activity', passportConfig.isAuthenticated,user.can('access private page'),activityController.addActivity);
 app.post('/add-activity',upload.single('myFile'),activityController.createActivity );
 
