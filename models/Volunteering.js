@@ -1,13 +1,10 @@
 const mongoose = require('mongoose');
 mongoose.set('debug', true);
 
-const volunteerSchema = new mongoose.Schema({
+const volunteeringSchema = new mongoose.Schema({
   name: String,
   description: String,
-  activity: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Activity'
-	},
+  activity: String,
   hours: Number,
   points: Number,
   mediaUrl: String,
@@ -15,5 +12,5 @@ const volunteerSchema = new mongoose.Schema({
    verified: Boolean
 });
 
-const Volunteer = mongoose.model('Volunteer', volunteerSchema);
-module.exports = Volunteer;
+const Volunteering = mongoose.model('Volunteering', volunteeringSchema);
+module.exports = Volunteering;

@@ -58,7 +58,7 @@ const organizationController = require('./controllers/organization');
 
 const activityController = require('./controllers/activity');
 
-const volunteerController = require('./controllers/volunteer');
+const volunteerController = require('./controllers/volunteering');
 
 /**
  * API keys and Passport configuration.
@@ -109,7 +109,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if (req.path === '/api/upload' ||req.path === '/add' ||req.path === '/project'||req.path === '/add/project'||req.path === '/add-activity' ) {
+  if (req.path === '/api/upload' ||req.path === '/add' ||req.path === '/project'||req.path === '/add/project'||req.path === '/add-activity' ||req.path === '/volunteering/add') {
     next();
   } else {
     lusca.csrf()(req, res, next);
@@ -241,8 +241,9 @@ app.get('/project/:projectid', projectController.getProject);
 app.get('/volunteer', activityController.getActivities);
 app.get('/volunteer/:activityid', activityController.getActivity);
 
-app.get('/volunteering',volunteerController.getVolunteer);
+app.get('/volunteering',volunteerController.getVolunteering);
 app.get('/volunteering/add', volunteerController.addVolunteering);
+app.post('/volunteering/add',upload.single('myFile'),volunteerController.createVolunteering);
 
 app.get('/add-activity', passportConfig.isAuthenticated,user.can('access private page'),activityController.addActivity);
 app.post('/add-activity',upload.single('myFile'),activityController.createActivity );

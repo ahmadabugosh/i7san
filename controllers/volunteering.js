@@ -1,9 +1,9 @@
-const Volunteer = require('../models/Volunteer.js');
+const Volunteering = require('../models/Volunteering.js');
 const Activity = require('../models/Activity.js');
 
-exports.getVolunteer = (req, res) => {
-  Volunteer.find((err, docs) => {
- res.render('volunteer', { 'volunteering': docs, title: 'Volunteer' });
+exports.getVolunteering = (req, res) => {
+  Volunteering.find((err, docs) => {
+ res.render('volunteering', { 'volunteering': docs, title: 'Volunteer' });
   });
 };
 
@@ -17,10 +17,8 @@ exports.addVolunteering = (req, res) => {
 exports.createVolunteering = (req, res) => {
 
 
-	const volunteering= new Volunteer({
+	const volunteering= new Volunteering({
 		name:req.body.name,
-		description: req.body.description,
-		category: req.body.category,
 		activity: req.body.activity
 	});
 
