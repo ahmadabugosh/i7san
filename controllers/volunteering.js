@@ -14,6 +14,13 @@ exports.addVolunteering = (req, res) => {
   });
 };
 
+exports.addVolunteeringID = (req, res) => {
+ Activity.find({ 'name': req.params.activityid },(err, docs) => {
+ res.render('add-volunteering', { 'activities': docs, title: 'Add Volunteering - '+req.params.activityid });
+  });
+
+};
+
 exports.createVolunteering = (req, res) => {
 
 
