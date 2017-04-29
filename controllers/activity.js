@@ -7,7 +7,7 @@ exports.getActivities = (req, res) => {
 };
 
 exports.getActivity = (req, res) => {
- Activity.find({ 'name': req.params.activityid },(err, docs) => {
+ Activity.find({ 'shortUrl': req.params.activityid },(err, docs) => {
  res.render('activity', { 'activities': docs, title: req.params.activityid+'Activity'  });
   });
 
@@ -22,11 +22,14 @@ exports.addActivity = (req, res) => {
 
 exports.createActivity = (req, res) => {
 
+var shortUrl = req.body.name;
+shortUrl = shortUrl.replace(/\s+/g, '-').toLowerCase();
 	const activity= new Activity({
 		name:req.body.name,
 		description: req.body.description,
 		hours: req.body.hours,
-		points: req.body.points
+		points: req.body.points,
+		shortUrl: shortUrl
 
 
 	});

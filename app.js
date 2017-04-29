@@ -109,7 +109,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if (req.path === '/api/upload' ||req.path === '/add' ||req.path === '/project'||req.path === '/add/project'||req.path === '/add-activity' ||req.path === '/volunteering/add') {
+  if (req.path === '/api/upload' ||req.path === '/add' ||req.path === '/project'||req.path === '/add/project'||req.path === '/activity/add' ||req.path === '/volunteering/add') {
     next();
   } else {
     lusca.csrf()(req, res, next);
@@ -230,6 +230,22 @@ user.use(function (req) {
 
 
 
+
+//Activity Routes
+app.get('/volunteer', activityController.getActivities);
+app.get('/volunteer/:activityid', activityController.getActivity);
+
+app.get('/activity/add', passportConfig.isAuthenticated,user.can('access private page'),activityController.addActivity);
+app.post('/activity/add',upload.single('myFile'),activityController.createActivity );
+
+//Volunteering Routes
+
+app.get('/volunteering',volunteerController.getVolunteering);
+app.get('/volunteering/add', volunteerController.addVolunteering);
+app.get('/volunteering/add/:activityid', volunteerController.addVolunteeringID);
+app.post('/volunteering/add',upload.single('myFile'),volunteerController.createVolunteering);
+
+//Need to change routes below this line
 //authenticated actions
 app.get('/my-projects', passportConfig.isAuthenticated,projectController.getMyProjects);
 app.get('/add', passportConfig.isAuthenticated,user.can('access private page'),projectController.addProjects);
@@ -238,16 +254,7 @@ app.get('/my-impact',passportConfig.isAuthenticated, impactController.getImpacts
 app.get('/projects', projectController.getProjects);
 app.get('/project/:projectid', projectController.getProject);
 
-app.get('/volunteer', activityController.getActivities);
-app.get('/volunteer/:activityid', activityController.getActivity);
 
-app.get('/volunteering',volunteerController.getVolunteering);
-app.get('/volunteering/add', volunteerController.addVolunteering);
-app.get('/volunteering/add/:activityid', volunteerController.addVolunteeringID);
-app.post('/volunteering/add',upload.single('myFile'),volunteerController.createVolunteering);
-
-app.get('/add-activity', passportConfig.isAuthenticated,user.can('access private page'),activityController.addActivity);
-app.post('/add-activity',upload.single('myFile'),activityController.createActivity );
 
 app.post('/add',upload.single('myFile'),projectController.createProjects);
 

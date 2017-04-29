@@ -3,6 +3,7 @@ mongoose.set('debug', true);
 
 const activitySchema = new mongoose.Schema({
   name: String,
+  shortUrl: String,
   description: String,
   category: String, 
   mediaUrl: String,
