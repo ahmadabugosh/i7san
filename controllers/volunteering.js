@@ -1,5 +1,6 @@
 const Volunteering = require('../models/Volunteering.js');
 const Activity = require('../models/Activity.js');
+const User = require('../models/User.js');
 
 exports.getVolunteering = (req, res) => {
   Volunteering.find((err, docs) => {
@@ -29,7 +30,21 @@ exports.createVolunteering = (req, res) => {
 		activity: req.body.activity
 	});
 
-	volunteering.save().then((doc)=> {
+	// volunteering.save().then((doc)=> {
+	// 	req.flash('success', { msg: 'Added!' });
+ //        res.location('/volunteering');
+ //        res.redirect('/volunteering');
+
+	// }, (e) => {
+
+	// 	res.status(400).send(e);
+
+	// });
+
+	 User.findOne({_id: req.user._id})
+	 .then ((user) => {
+	user.volunteering.push(volunteering);
+		Promise.all([user.save(),volunteering.save()]).then((doc)=> {
 		req.flash('success', { msg: 'Added!' });
         res.location('/volunteering');
         res.redirect('/volunteering');
@@ -39,6 +54,8 @@ exports.createVolunteering = (req, res) => {
 		res.status(400).send(e);
 
 	});
+		});
+	
 
 
 

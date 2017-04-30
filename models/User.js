@@ -20,6 +20,11 @@ organizations:[{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Project'
   }],
+    volunteering:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Volunteering'
+  }],
+
   facebook: String,
 
   role: {type: String, default: "user"},
