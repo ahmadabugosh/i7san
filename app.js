@@ -243,7 +243,8 @@ app.post('/activity/add',upload.single('myFile'),activityController.createActivi
 app.get('/volunteering',volunteerController.getVolunteering);
 app.get('/volunteering/add', volunteerController.addVolunteering);
 app.get('/volunteering/add/:activityid', volunteerController.addVolunteeringID);
-app.post('/volunteering/add',upload.single('myFile'),volunteerController.createVolunteering);
+app.get('/volunteering/add/:activityid', volunteerController.addVolunteeringID);
+app.get('/volunteering/me',volunteerController.getMyVolunteering);
 
 //Need to change routes below this line
 //authenticated actions
