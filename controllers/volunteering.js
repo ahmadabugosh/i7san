@@ -19,6 +19,17 @@ exports.getMyVolunteering = (req, res) => {
 	
 };
 
+exports.getMyVolunteeringID = (req, res) => {
+
+	 User.findOne({username: req.params.username}).populate('volunteering')
+	 .then ((user) => {
+	 	console.log('Testing output'+ user.volunteering);
+	 res.render('impacts', { 'volunteering': user.volunteering, title: 'My Impact' });
+
+		});
+	
+};
+
 
 exports.addVolunteering = (req, res) => {
   Activity.find((err, docs) => {

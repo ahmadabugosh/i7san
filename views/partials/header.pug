@@ -13,8 +13,8 @@
       ul.nav.navbar-nav
         li(class=(title == 'Volunteer') ? 'active' : undefined)
           a(href='/volunteer') Volunteer
-        li(class=(title == 'All Organizations') ? 'active' : undefined)
-          a(href='/organizations') All Organizations
+        li(class=(title == 'Organizations') ? 'active' : undefined)
+          a(href='/organizations') Organizations
         if !user
           li(class=(title == 'Login') ? 'active' : undefined)
             a(href='/login') Login
@@ -22,12 +22,9 @@
             a(href='/signup') Create Account
         else
           if (user.role === 'moderator' || user.role === 'admin')
-            li(class=(title == 'Add Project') ? 'active' : undefined)
-              a(href='/add') Add Project
-          li(class=(title == 'My Projects') ? 'active' : undefined)
-            a(href='/my-projects') My Projects
+      
           li(class=(title == 'My Impact') ? 'active' : undefined)
-            a(href='/my-impact') My Impact
+            a(href='/volunteering/'+user.username) My Impact
           li.dropdown(class=(title == 'Account Management') ? 'active' : undefined)
             a.dropdown-toggle(href='#', data-toggle='dropdown')
               if user.profile.picture

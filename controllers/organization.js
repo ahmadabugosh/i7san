@@ -10,6 +10,11 @@ exports.getOrganizations = (req, res) => {
   });
 };
 
+exports.getOrganization = (req, res) => {
+  Organization.find({'shortUrl': req.params.organizationid},(err, docs) => {
+ res.render('organizations', { 'organizations': docs, title: req.params.organizationid+'- Organization' });
+  });
+};
 
 
 exports.addProjects = (req, res) => {

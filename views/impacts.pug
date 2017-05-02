@@ -2,8 +2,7 @@ extends layout
 
 block content
 	.page-header
-		h3 All Contributions
+		h3 My Impact
 	ul
-		for impact in impacts
-			li= impact[0].category +": You helped provide " + impact[0].amount +" " + impact[0].metric
-			li= impact[1].category +": You helped provide " + impact[1].amount +" " + impact[1].metric
+		for volunteer in volunteering
+			h4.li.list-group-item(class='div.media')= volunteer.name

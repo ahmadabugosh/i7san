@@ -245,6 +245,7 @@ app.get('/volunteering/add', volunteerController.addVolunteering);
 app.get('/volunteering/add/:activityid', volunteerController.addVolunteeringID);
 app.get('/volunteering/add/:activityid', volunteerController.addVolunteeringID);
 app.get('/volunteering/me',volunteerController.getMyVolunteering);
+app.get('/volunteering/:username',volunteerController.getMyVolunteeringID);
 
 //Need to change routes below this line
 //authenticated actions
@@ -260,6 +261,7 @@ app.get('/project/:projectid', projectController.getProject);
 app.post('/add',upload.single('myFile'),projectController.createProjects);
 
 app.get('/organizations',organizationController.getOrganizations);
+app.get('/organization/:organizationid', organizationController.getOrganization);
 // app.get('/add/organization',organizationController.addOrganizations);
 // app.post('/add/organization',upload.single('myFile'),organizationController.createOrganizations);
 

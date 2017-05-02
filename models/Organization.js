@@ -15,7 +15,8 @@ const organizationSchema = new mongoose.Schema({
 	users:[{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'
-	}]
+	}],
+	shortUrl: String
 });
 
 const Organization = mongoose.model('Organization', organizationSchema);

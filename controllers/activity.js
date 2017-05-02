@@ -2,7 +2,7 @@ const Activity = require('../models/Activity.js');
 
 exports.getActivities = (req, res) => {
   Activity.find((err, docs) => {
- res.render('activities', { 'activities': docs, title: 'Activities' });
+ res.render('activities', { 'activities': docs, title: 'Volunteer' });
   });
 };
 
