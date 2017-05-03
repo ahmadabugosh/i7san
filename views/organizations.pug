@@ -5,4 +5,8 @@ block content
 		h3 Organizations
 	ul
 		for organization in organizations
-			li= organization.name
+			h4.li.list-group-item(class='div.media')= organization.name
+				.media-left
+				br
+				a(href='../organization/'+organization.shortUrl)
+					button.btn.btn-primary(type='button') Join Activity
