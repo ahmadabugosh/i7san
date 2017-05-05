@@ -1,5 +1,6 @@
 const Organization = require('../models/Organization.js');
 const Project = require('../models/Project.js');
+const Activity = require('../models/Activity.js');
 
 
 
@@ -51,6 +52,39 @@ const project= new Project({
 
 	});
 		});
+	
+};
+
+exports.addOrganization = (req, res) => {
+  Activity.find((err, docs) => {
+ res.render('add-organization', { 'activities': docs, title: 'Add Organization'  });
+  });
+};
+
+
+exports.createOrganization = (req, res) => {
+
+var shortUrl = req.body.name;
+shortUrl = shortUrl.replace(/\s+/g, '-').toLowerCase();
+
+const organization= new Organization({
+		name:req.body.name,
+		category: req.body.activity,
+		shortUrl: shortUrl
+	});
+
+organization.save().then((doc)=> {
+		req.flash('success', { msg: 'Added!' });
+        res.location('/organizations');
+        res.redirect('/organizations');
+
+	}, (e) => {
+
+		res.status(400).send(e);
+
+	});
+
+	
 	
 };
 

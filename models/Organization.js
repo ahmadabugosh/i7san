@@ -3,7 +3,10 @@ mongoose.set('debug', true);
 
 const organizationSchema = new mongoose.Schema({
   name: String,
-  country: String, 
+  country: String,
+  description: String, 
+  rating: String,
+  category: String, 
   activities:[{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Activity'

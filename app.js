@@ -109,7 +109,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if (req.path === '/api/upload' ||req.path === '/add' ||req.path === '/project'||req.path === '/add/project'||req.path === '/activity/add' ||req.path === '/volunteering/add') {
+  if (req.path === '/api/upload' ||req.path === '/add' ||req.path === '/project'||req.path === '/add/project'||req.path === '/activity/add' ||req.path === '/volunteering/add'||req.path === '/organization/add') {
     next();
   } else {
     lusca.csrf()(req, res, next);
@@ -261,9 +261,10 @@ app.get('/project/:projectid', projectController.getProject);
 app.post('/add',upload.single('myFile'),projectController.createProjects);
 
 app.get('/organizations',organizationController.getOrganizations);
+app.get('/organization/add',organizationController.addOrganization);
 app.get('/organization/:organizationid', organizationController.getOrganization);
-// app.get('/add/organization',organizationController.addOrganizations);
-// app.post('/add/organization',upload.single('myFile'),organizationController.createOrganizations);
+
+app.post('/organization/add',upload.single('myFile'),organizationController.createOrganization);
 
 app.get('/add/project',organizationController.addProjects);
 app.post('/add/project',upload.single('myFile'),organizationController.createProjects);
