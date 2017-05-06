@@ -73,6 +73,8 @@ const organization= new Organization({
 		shortUrl: shortUrl
 	});
 
+organization.activities.push(req.body.activities);
+
 organization.save().then((doc)=> {
 		req.flash('success', { msg: 'Added!' });
         res.location('/organizations');
