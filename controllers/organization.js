@@ -73,9 +73,13 @@ const organization= new Organization({
 		shortUrl: shortUrl
 	});
 
-organization.activities.push(req.body.activities);
+	 Activity.findOne({name: req.body.activity})
+		.then ((activity) => {
+organization.activities.push(activity);
+organization.save();
+		});
 
-organization.save().then((doc)=> {
+		organization.save().then((doc)=> {
 		req.flash('success', { msg: 'Added!' });
         res.location('/organizations');
         res.redirect('/organizations');
@@ -85,6 +89,10 @@ organization.save().then((doc)=> {
 		res.status(400).send(e);
 
 	});
+
+
+
+
 
 	
 	
