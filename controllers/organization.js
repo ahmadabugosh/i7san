@@ -70,14 +70,10 @@ shortUrl = shortUrl.replace(/\s+/g, '-').toLowerCase();
 const organization= new Organization({
 		name:req.body.name,
 		category: req.body.activity,
-		shortUrl: shortUrl
+		
 	});
 
-	 Activity.findOne({name: req.body.activity})
-		.then ((activity) => {
-organization.activities.push(activity);
-organization.save();
-		});
+	console.log(req.body);
 
 		organization.save().then((doc)=> {
 		req.flash('success', { msg: 'Added!' });

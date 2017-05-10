@@ -8,11 +8,13 @@ block content
           div.form-group
           label Organization Name:
             input.form-control(type='text', name='name')
-            br
+          label Organization Category:
+            input.form-control(type='text', name='category')
+
             label Activity Categories
-            select.btn.btn-primary.dropdown-toggle(name= "activity")
               for activity in activities
-                option(value=activity.name, selected="#{activity.name}") #{activity.name}
+                input(type="checkbox", name="#{activity.name}", checked=(true===false ? "checked" : undefined))
+
             br
           div.form-group
             button.btn.btn-primary.btn-signup(type='submit') Add Organization

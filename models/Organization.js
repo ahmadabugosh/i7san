@@ -7,10 +7,7 @@ const organizationSchema = new mongoose.Schema({
   description: String, 
   rating: String,
   category: String, 
-  activities:[{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Activity'
-	}],
+  activities:[String],
 	projects:[{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Project'
