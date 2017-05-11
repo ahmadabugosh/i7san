@@ -10,11 +10,14 @@ block content
             input.form-control(type='text', name='name')
           label Organization Category:
             input.form-control(type='text', name='category')
-
             label Activity Categories
-              for activity in activities
-                input(type="checkbox", name="#{activity.name}", checked=(true===false ? "checked" : undefined))
-
+              br
+              .col-sm-6
+                for activity in activities
+                  .checkbox
+                    label
+                      input(name='activity', type='checkbox', value=activity.name)
+                      | #{activity.name}
             br
           div.form-group
             button.btn.btn-primary.btn-signup(type='submit') Add Organization
