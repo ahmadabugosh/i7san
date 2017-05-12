@@ -4,7 +4,8 @@ mongoose.set('debug', true);
 const organizationSchema = new mongoose.Schema({
   name: String,
   country: String,
-  description: String, 
+  description: String,
+  logo: String, 
   rating: String,
   category: String, 
   activities:[String],

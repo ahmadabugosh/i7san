@@ -6,13 +6,16 @@ block content
         h1 Add Organization
         form(method='post', action='/organization/add', role='form',enctype='multipart/form-data')
           div.form-group
-          label Organization Name:
-            input.form-control(type='text', name='name')
-          label Organization Category:
-            input.form-control(type='text', name='category')
-            label Activity Categories
+          label Organization Name
+            input.form-control(type='text', name='name',required='')
+          label Logo
+            input(type='file', name='myFile',required='')
+            br
+          label Organization Description
+            textarea.form-control(type='text', name='category', style='width:500px; height:200px',required='')
+            label Organization Activities
               br
-              .col-sm-6
+              .checkbox-inline
                 for activity in activities
                   .checkbox
                     label

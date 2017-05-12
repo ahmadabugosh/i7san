@@ -67,9 +67,14 @@ exports.createOrganization = (req, res) => {
 var shortUrl = req.body.name;
 shortUrl = shortUrl.replace(/\s+/g, '-').toLowerCase();
 
+
+
 const organization= new Organization({
 		name:req.body.name,
-		category: req.body.activity,
+		description:req.body.description,
+		activities: req.body.activity,
+		shortUrl: shortUrl,
+		logo: req.file.filename
 		
 	});
 
