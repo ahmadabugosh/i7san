@@ -1,0 +1,13 @@
+extends layout
+
+block content
+	.page-header
+		h3 #{title}
+	ul
+		for organization in organizations
+			h4.li.list-group-item(class='div.media')= organization.name
+			h4 #{organization.category}
+				.media-left
+				br
+				a(href='../organization/'+organization.shortUrl)
+					button.btn.btn-primary(type='button') Organization Profile
