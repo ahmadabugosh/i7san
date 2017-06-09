@@ -21,6 +21,12 @@ const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
 
+//React libraries
+var React = require('react');
+var ReactDOM = require('react-dom/server');
+var Router = require('react-router');
+var Provider = require('react-redux').Provider;
+
 const ConnectRoles = require('connect-roles');
 
 var user = new ConnectRoles({
