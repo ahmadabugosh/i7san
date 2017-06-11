@@ -21,11 +21,6 @@ const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
 
-//React libraries
-var React = require('react');
-var ReactDOM = require('react-dom/server');
-var Router = require('react-router');
-var Provider = require('react-redux').Provider;
 
 const ConnectRoles = require('connect-roles');
 
@@ -50,7 +45,7 @@ const upload = multer({ dest: path.join(__dirname, 'uploads') });
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
 //dotenv.load({ path: '.env' });
-dotenv.load({ path: '.env.example' });
+dotenv.load({ path: '.env' });
 
 /**
  * Controllers (route handlers).
@@ -168,51 +163,10 @@ app.post('/account/password', passportConfig.isAuthenticated, userController.pos
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 
-/**
- * API examples routes.
- */
-app.get('/api', apiController.getApi);
-app.get('/api/stripe', apiController.getStripe);
-app.post('/api/stripe', apiController.postStripe);
 
 
 
-app.get('/api/facebook', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFacebook);
-app.get('/api/twitter', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getTwitter);
-app.post('/api/twitter', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.postTwitter);
-app.get('/api/linkedin', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getLinkedin);
-app.get('/api/instagram', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getInstagram);
-app.get('/api/paypal', apiController.getPayPal);
-app.get('/api/paypal/success', apiController.getPayPalSuccess);
-app.get('/api/paypal/cancel', apiController.getPayPalCancel);
-app.get('/api/upload', apiController.getFileUpload);
-app.post('/api/upload', upload.single('myFile'), apiController.postFileUpload);
 
-app.get('/api/google-maps', apiController.getGoogleMaps);
-
-/**
- * OAuth authentication routes. (Sign in)
- */
-app.get('/auth/instagram', passport.authenticate('instagram'));
-app.get('/auth/instagram/callback', passport.authenticate('instagram', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect(req.session.returnTo || '/');
-});
-app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
-app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect(req.session.returnTo || '/');
-});
-app.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
-app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect(req.session.returnTo || '/');
-});
-app.get('/auth/twitter', passport.authenticate('twitter'));
-app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect(req.session.returnTo || '/');
-});
-app.get('/auth/linkedin', passport.authenticate('linkedin', { state: 'SOME STATE' }));
-app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect(req.session.returnTo || '/');
-});
 
 user.use(function (req, action) {
   if (!req.isAuthenticated()) return action === 'access home page';
@@ -250,7 +204,7 @@ app.post('/activity/add',upload.single('myFile'),activityController.createActivi
 app.get('/volunteering',volunteerController.getVolunteering);
 app.get('/volunteering/add', volunteerController.addVolunteering);
 app.get('/volunteering/add/:activityid', volunteerController.addVolunteeringID);
-app.get('/volunteering/add/:activityid', volunteerController.addVolunteeringID);
+app.post('/volunteering/add/', volunteerController.createVolunteering);
 app.get('/volunteering/me',volunteerController.getMyVolunteering);
 app.get('/volunteering/:username',volunteerController.getMyVolunteeringID);
 

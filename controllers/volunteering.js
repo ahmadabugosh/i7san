@@ -51,6 +51,7 @@ exports.createVolunteering = (req, res) => {
 		name:req.body.name,
 		activity: req.body.activity
 	});
+	console.log("Testing 123",req.body);
 
 	// volunteering.save().then((doc)=> {
 	// 	req.flash('success', { msg: 'Added!' });
